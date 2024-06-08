@@ -33,7 +33,7 @@ const MyWishlistScreen = ({ navigation, route }) => {
   //method the remove the authUser from Aysnc Storage and navigate back to login screen
   const logout = async () => {
     await AsyncStorage.removeItem("authUser");
-    navigation.replace("login");
+    navigation.navigate("login");
   };
 
   //method call on pull refresh

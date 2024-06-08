@@ -125,7 +125,7 @@ const EditProductScreen = ({ navigation, route }) => {
       <View style={styles.TopBarContainer}>
         <TouchableOpacity
           onPress={() => {
-            // navigation.replace("viewproduct", { authUser: authUser });
+            // navigation.navigate("viewproduct", { authUser: authUser });
             navigation.goBack();
           }}
         >

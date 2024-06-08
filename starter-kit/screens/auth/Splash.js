@@ -14,16 +14,16 @@ const Splash = ({ navigation }) => {
         let user = JSON.parse(value); // covert the authUser value to json
         if (user.userType === "ADMIN") {
           setTimeout(() => {
-            navigation.replace("dashboard", { authUser: JSON.parse(value) }); // navigate to Admin dashboard
+            navigation.navigate("dashboard", { authUser: JSON.parse(value) }); // navigate to Admin dashboard
           }, 2000);
         } else {
           setTimeout(() => {
-            navigation.replace("tab", { user: JSON.parse(value) }); // navigate to User Home screen
+            navigation.navigate("tab", { user: JSON.parse(value) }); // navigate to User Home screen
           }, 2000);
         }
       } else {
         setTimeout(() => {
-          navigation.replace("login"); // // navigate to login screen if there is no authUser store in aysnc storage
+          navigation.navigate("login"); // // navigate to login screen if there is no authUser store in aysnc storage
         }, 2000);
       }
     } catch (error) {

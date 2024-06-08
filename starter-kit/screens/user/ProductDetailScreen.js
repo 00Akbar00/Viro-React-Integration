@@ -32,7 +32,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
   //remove the authUser from async storage and navigate to login
   const logout = async () => {
     await AsyncStorage.removeItem("authUser");
-    navigation.replace("login");
+    navigation.navigate("login");
   };
 
   const [onWishlist, setOnWishlist] = useState(false);

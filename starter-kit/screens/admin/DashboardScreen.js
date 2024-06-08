@@ -30,7 +30,7 @@ const DashboardScreen = ({ navigation, route }) => {
   //method to remove the auth user from async storage and navigate the login if token expires
   const logout = async () => {
     await AsyncStorage.removeItem("authUser");
-    navigation.replace("login");
+    navigation.navigate("login");
   };
 
   var myHeaders = new Headers();
@@ -122,7 +122,7 @@ const DashboardScreen = ({ navigation, route }) => {
           <TouchableOpacity
             onPress={async () => {
               await AsyncStorage.removeItem("authUser");
-              navigation.replace("login");
+              navigation.navigate("login");
             }}
           >
             <Ionicons name="log-out" size={30} color={colors.muted} />

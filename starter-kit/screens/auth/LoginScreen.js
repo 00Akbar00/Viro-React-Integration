@@ -75,11 +75,11 @@ const LoginScreen = ({ navigation }) => {
         if (result?.data?.userType === "ADMIN") {
           _storeData(result.data);
           setIsLoading(false);
-          navigation.replace("dashboard", { authUser: result.data });
+          navigation.navigate("dashboard", { authUser: result.data });
         } else {
           _storeData(result.data);
           setIsLoading(false);
-          navigation.replace("tab", { user: result.data });
+          navigation.navigate("tab", { user: result.data });
         }
       } else {
         setIsLoading(false);

@@ -37,7 +37,7 @@ const CheckoutScreen = ({ navigation, route }) => {
   //method to remove the authUser from aysnc storage and navigate to login
   const logout = async () => {
     await AsyncStorage.removeItem("authUser");
-    navigation.replace("login");
+    navigation.navigate("login");
   };
 
   //method to handle checkout
@@ -95,7 +95,7 @@ const CheckoutScreen = ({ navigation, route }) => {
         if (result.success == true) {
           setIsloading(false);
           emptyCart("empty");
-          navigation.replace("orderconfirm");
+          navigation.navigate("orderconfirm");
         }
       })
       .catch((error) => {
@@ -220,7 +220,7 @@ const CheckoutScreen = ({ navigation, route }) => {
         {country && city && streetAddress != "" ? (
           <CustomButton
             text={"Submit Order"}
-            // onPress={() => navigation.replace("orderconfirm")}
+            // onPress={() => navigation.navigate("orderconfirm")}
             onPress={() => {
               handleCheckout();
             }}

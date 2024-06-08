@@ -28,7 +28,7 @@ const OrderConfirmScreen = ({ navigation }) => {
       <View>
         <CustomButton
           text={"Back to Home"}
-          onPress={() => navigation.replace("tab", { user: user })}
+          onPress={() => navigation.navigate("tab", { user: user })}
         />
       </View>
     </View>
