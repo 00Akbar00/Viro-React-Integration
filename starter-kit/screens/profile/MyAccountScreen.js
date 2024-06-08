@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
-import { Ionicons } from "react-native-vector-icons";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { MaterialIcons } from "react-native-vector-icons";
 import OptionList from "../../components/OptionList/OptionList";
 import { network } from "../../constants";
