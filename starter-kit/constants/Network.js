@@ -1,3 +1,3 @@
 export default network = {
-  serverip: "http://192.168.1.34:8082",
+  serverip: "http://192.168.100.41:8082",
 };  
