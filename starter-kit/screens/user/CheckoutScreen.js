@@ -7,7 +7,9 @@ import {
   ScrollView,
   Modal,
 } from "react-native";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BackButton from "../../components/BackButton";
 import React, { useState, useEffect } from "react";
 import BasicProductList from "../../components/BasicProductList/BasicProductList";
 import { colors, network } from "../../constants";
@@ -128,11 +130,7 @@ const CheckoutScreen = ({ navigation, route }) => {
             navigation.goBack();
           }}
         >
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={30}
-            color={colors.muted}
-          />
+          <BackButton />
         </TouchableOpacity>
         <View></View>
         <View></View>

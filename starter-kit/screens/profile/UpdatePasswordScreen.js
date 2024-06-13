@@ -1,6 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BackButton from "../../components/BackButton";
 import { colors, network } from "../../constants";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
@@ -62,11 +64,7 @@ const UpdatePasswordScreen = ({ navigation, route }) => {
             navigation.goBack();
           }}
         >
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={30}
-            color={colors.muted}
-          />
+          <BackButton />
         </TouchableOpacity>
       </View>
       <View style={styles.screenNameContainer}>

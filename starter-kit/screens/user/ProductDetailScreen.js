@@ -7,7 +7,9 @@ import {
   Text,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BackButton from "../../components/BackButton";
 import cartIcon from "../../assets/icons/cart_beg.png";
 import { colors, network } from "../../constants";
 import CustomButton from "../../components/CustomButton";
@@ -198,11 +200,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
             navigation.goBack();
           }}
         >
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={30}
-            color={colors.muted}
-          />
+          <BackButton />
         </TouchableOpacity>
 
         <View></View>

@@ -10,7 +10,9 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { colors, network } from "../../constants";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BackButton from "../../components/BackButton";
 import { AntDesign } from "react-native-vector-icons";
 import ProductList from "../../components/ProductList/ProductList";
 import CustomAlert from "../../components/CustomAlert/CustomAlert";
@@ -149,11 +151,7 @@ const ViewProductScreen = ({ navigation, route }) => {
             navigation.goBack();
           }}
         >
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={30}
-            color={colors.muted}
-          />
+          <BackButton />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {

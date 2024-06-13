@@ -8,8 +8,10 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import  MaterialIcons  from "react-native-vector-icons/MaterialIcons";
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BackButton from "../../components/BackButton";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import OptionList from "../../components/OptionList/OptionList";
 import { network } from "../../constants";
 
@@ -69,11 +71,7 @@ const MyAccountScreen = ({ navigation, route }) => {
             navigation.goBack();
           }}
         >
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={30}
-            color={colors.muted}
-          />
+          <BackButton />
         </TouchableOpacity>
       </View>
       <View style={styles.screenNameContainer}>

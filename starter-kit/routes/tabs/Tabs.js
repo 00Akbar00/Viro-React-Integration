@@ -1,7 +1,9 @@
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BackButton from "../../components/BackButton";
 import HomeScreen from "../../screens/user/HomeScreen";
 import { colors } from "../../constants";
 import UserProfileScreen from "../../screens/profile/UserProfileScreen";
@@ -9,8 +11,12 @@ import HomeIconActive from "../../assets/icons/bar_home_icon_active.png";
 import HomeIcon from "../../assets/icons/bar_home_icon.png";
 import userIcon from "../../assets/icons/bar_profile_icon.png";
 import userIconActive from "../../assets/icons/bar_profile_icon_active.png";
-import MyOrderScreen from "../../screens/user/MyOrderScreen";
 import CategoriesScreen from "../../screens/user/CategoriesScreen";
+import CategoriesIcon from "../../assets/icons/bar_categories_icon.png";
+import CategoriesIconActive from "../../assets/icons/bar_categories_icon_active.png";
+import MyOrderScreen from "../../screens/user/MyOrderScreen";
+import MyOrderIcon from "../../assets/icons/bar_order_icon.png";
+import MyOrderIconActive from "../../assets/icons/bar_order_icon_active.png";
 
 const Tab = createBottomTabNavigator();
 
@@ -35,62 +41,46 @@ const Tabs = ({ navigation, route }) => {
           if (routename == "home") {
             return (
               <TouchableOpacity disabled>
-                {focused == true ? (
-                  <Image
-                    source={HomeIconActive}
-                    style={StyleSheet.tabIconStyle}
-                  />
+                {focused ? (
+                  <Image source={HomeIconActive} style={styles.tabIconStyle} />
                 ) : (
-                  <Image source={HomeIcon} style={StyleSheet.tabIconStyle} />
+                  <Image source={HomeIcon} style={styles.tabIconStyle} />
                 )}
               </TouchableOpacity>
             );
           } else if (routename == "categories") {
             return (
               <TouchableOpacity disabled>
-                {focused == true ? (
-                  <Ionicons
-                    name="ios-apps-sharp"
-                    size={29}
-                    color={colors.primary}
+                {focused ? (
+                  <Image
+                    source={CategoriesIconActive}
+                    style={styles.tabIconStyle}
                   />
                 ) : (
-                  <Ionicons
-                    name="ios-apps-sharp"
-                    size={29}
-                    color={colors.muted}
-                  />
+                  <Image source={CategoriesIcon} style={styles.tabIconStyle} />
                 )}
               </TouchableOpacity>
             );
           } else if (routename == "myorder") {
             return (
               <TouchableOpacity disabled>
-                {focused == true ? (
-                  <Ionicons
-                    name="cart-outline"
-                    size={29}
-                    color={colors.primary}
+                {focused ? (
+                  <Image
+                    source={MyOrderIconActive}
+                    style={styles.tabIconStyle}
                   />
                 ) : (
-                  <Ionicons
-                    name="cart-outline"
-                    size={29}
-                    color={colors.muted}
-                  />
+                  <Image source={MyOrderIcon} style={styles.tabIconStyle} />
                 )}
               </TouchableOpacity>
             );
           } else if (routename == "user") {
             return (
               <TouchableOpacity disabled>
-                {focused == true ? (
-                  <Image
-                    source={userIconActive}
-                    style={StyleSheet.tabIconStyle}
-                  />
+                {focused ? (
+                  <Image source={userIconActive} style={styles.tabIconStyle} />
                 ) : (
-                  <Image source={userIcon} style={StyleSheet.tabIconStyle} />
+                  <Image source={userIcon} style={styles.tabIconStyle} />
                 )}
               </TouchableOpacity>
             );
@@ -145,7 +135,7 @@ export default Tabs;
 
 const styles = StyleSheet.create({
   tabIconStyle: {
-    width: 10,
-    height: 10,
+    width: 25,
+    height: 25,
   },
 });

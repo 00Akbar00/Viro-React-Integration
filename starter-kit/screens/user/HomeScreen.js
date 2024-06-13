@@ -9,7 +9,9 @@ import {
   RefreshControl,
   ScrollView,
 } from "react-native";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BackButton from "../../components/BackButton";
 import React, { useEffect, useState } from "react";
 import cartIcon from "../../assets/icons/cart_beg.png";
 import scanIcon from "../../assets/icons/scan_icons.png";
@@ -23,14 +25,14 @@ import { bindActionCreators } from "redux";
 import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import { SliderBox } from "react-native-image-slider-box";
-import SofaLine from '../../assets/icons/sofa-line.png'
-import Chairs from '../../assets/icons/chair.png'
-import Stools from '../../assets/icons/stool.png'
-import Tables from '../../assets/icons/table.png'
-import SofaBanner from '../../assets/image/banners/sofa-banner.jpeg'
-import Contrast from '../../assets/image/banners/contrast.jpeg'
-import ChairBanner from '../../assets/image/banners/chair.jpeg'
-
+import SofaLine from "../../assets/icons/sofa-line.png";
+import Chairs from "../../assets/icons/chair.png";
+import Stools from "../../assets/icons/stool.png";
+import Tables from "../../assets/icons/table.png";
+import SofaBanner from "../../assets/image/banners/sofa-banner.jpeg";
+import Contrast from "../../assets/image/banners/contrast.jpeg";
+import ChairBanner from "../../assets/image/banners/chair.jpeg";
+import MenuBar from "../../components/MenuButton";
 
 const category = [
   {
@@ -55,11 +57,7 @@ const category = [
   },
 ];
 
-const slides = [
-  SofaBanner,
-  Contrast,
-  ChairBanner,
-];
+const slides = [SofaBanner, Contrast, ChairBanner];
 
 const HomeScreen = ({ navigation, route }) => {
   const cartproduct = useSelector((state) => state.product);
@@ -139,7 +137,7 @@ const HomeScreen = ({ navigation, route }) => {
       <StatusBar></StatusBar>
       <View style={styles.topBarContainer}>
         <TouchableOpacity disabled>
-          <Ionicons name="menu" size={30} color={colors.muted} />
+          <MenuBar />
         </TouchableOpacity>
         <View style={styles.topbarlogoContainer}>
           <Image source={easybuylogo} style={styles.logo} />
@@ -295,7 +293,6 @@ const HomeScreen = ({ navigation, route }) => {
 
 export default HomeScreen;
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -323,7 +320,7 @@ const styles = StyleSheet.create({
   toBarText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: '#252422',
+    color: "#252422",
   },
   cartIconContainer: {
     flexDirection: "row",

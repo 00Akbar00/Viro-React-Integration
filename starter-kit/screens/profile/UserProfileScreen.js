@@ -7,10 +7,13 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BackButton from "../../components/BackButton";
 import OptionList from "../../components/OptionList/OptionList";
 import { colors } from "../../constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import MenuBar from "../../components/MenuButton";
 
 const UserProfileScreen = ({ navigation, route }) => {
   const [userInfo, setUserInfo] = useState({});
@@ -33,7 +36,7 @@ const UserProfileScreen = ({ navigation, route }) => {
       <StatusBar style="auto"></StatusBar>
       <View style={styles.TopBarContainer}>
         <TouchableOpacity>
-          <Ionicons name="menu-sharp" size={30} color={colors.primary} />
+          <MenuBar />
         </TouchableOpacity>
       </View>
       <View style={styles.screenNameContainer}>

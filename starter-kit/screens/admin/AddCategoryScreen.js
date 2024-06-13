@@ -12,7 +12,9 @@ import React, { useState } from "react";
 import { colors, network } from "../../constants";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+import BackButton from "../../components/BackButton";
 import CustomAlert from "../../components/CustomAlert/CustomAlert";
 // import * as ImagePicker from "expo-image-picker";
 import ProgressDialog from "react-native-progress-dialog";
@@ -102,11 +104,7 @@ const AddCategoryScreen = ({ navigation, route }) => {
             navigation.goBack();
           }}
         >
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={30}
-            color={colors.muted}
-          />
+          <BackButton />
         </TouchableOpacity>
       </View>
       <View style={styles.screenNameContainer}>

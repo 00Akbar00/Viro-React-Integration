@@ -10,8 +10,7 @@ import {
   Dimensions,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
 import cartIcon from "../../assets/icons/cart_beg.png";
 import emptyBox from "../../assets/image/emptybox.png";
 import { colors, network } from "../../constants";
@@ -25,6 +24,8 @@ import Garments from "../../assets/icons/garments.png";
 import Electronics from "../../assets/icons/electronics.png";
 import Cosmetics from "../../assets/icons/cosmetics.png";
 import Grocery from "../../assets/icons/grocery.png";
+import icon from "react-native-vector-icons/MaterialCommunityIcons";
+import BackButton from "../../components/BackButton";
 
 const CategoriesScreen = ({ navigation, route }) => {
   const { categoryID } = route.params;
@@ -157,11 +158,7 @@ const CategoriesScreen = ({ navigation, route }) => {
             navigation.jumpTo("home");
           }}
         >
-          <Ionicons
-            name="arrow-back-circle-outline"
-            size={30}
-            color={colors.muted}
-          />
+          <BackButton />
         </TouchableOpacity>
 
         <View></View>
