@@ -20,10 +20,10 @@ import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
 import CustomIconButton from "../../components/CustomIconButton/CustomIconButton";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import CustomInput from "../../components/CustomInput";
-import Garments from "../../assets/icons/garments.png";
-import Electronics from "../../assets/icons/electronics.png";
-import Cosmetics from "../../assets/icons/cosmetics.png";
-import Grocery from "../../assets/icons/grocery.png";
+import SofaLine from "../../assets/icons/sofa-line.png";
+import Chairs from "../../assets/icons/chair.png";
+import Stools from "../../assets/icons/stool.png";
+import Tables from "../../assets/icons/table.png";
 import icon from "react-native-vector-icons/MaterialCommunityIcons";
 import BackButton from "../../components/BackButton";
 
@@ -74,25 +74,26 @@ const CategoriesScreen = ({ navigation, route }) => {
   const category = [
     {
       _id: "62fe244f58f7aa8230817f89",
-      title: "Garments",
-      image: Garments,
+      title: "Sofas",
+      image: SofaLine,
     },
     {
       _id: "62fe243858f7aa8230817f86",
-      title: "Electornics",
-      image: Electronics,
+      title: "Chairs",
+      image: Chairs,
     },
     {
       _id: "62fe241958f7aa8230817f83",
-      title: "Cosmentics",
-      image: Cosmetics,
+      title: "Stools",
+      image: Stools,
     },
     {
       _id: "62fe246858f7aa8230817f8c",
-      title: "Groceries",
-      image: Grocery,
+      title: "Tables",
+      image: Tables,
     },
   ];
+
   const [selectedTab, setSelectedTab] = useState(category[0]);
 
   //method to fetch the product from server using API call

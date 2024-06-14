@@ -151,9 +151,7 @@ const HomeScreen = ({ navigation, route }) => {
             <View style={styles.cartItemCountContainer}>
               <Text style={styles.cartItemCountText}>{cartproduct.length}</Text>
             </View>
-          ) : (
-            <></>
-          )}
+          ) : null}
           <Image source={cartIcon} />
         </TouchableOpacity>
       </View>
@@ -165,21 +163,21 @@ const HomeScreen = ({ navigation, route }) => {
               onItemSelect={(item) => handleProductPress(item)}
               defaultIndex={0}
               containerStyle={{
-                borderRadius: 5,
-                width: "100%",
-                elevation: 5,
+                borderRadius: 15,
+                width: "105%",
+                elevation: 4,
                 position: "absolute",
                 zIndex: 20,
-                top: -20,
+                top: -25,
                 maxHeight: 300,
                 backgroundColor: colors.light,
               }}
               textInputStyle={{
-                borderRadius: 10,
-                padding: 6,
-                paddingLeft: 10,
+                borderRadius: 15,
+                padding: 10,
                 borderWidth: 0,
                 backgroundColor: colors.white,
+                fontSize: 16,
               }}
               itemStyle={{
                 padding: 10,
@@ -198,11 +196,24 @@ const HomeScreen = ({ navigation, route }) => {
               resetValue={false}
               underlineColorAndroid="transparent"
             />
-            {/* <CustomInput radius={5} placeholder={"Search...."} /> */}
           </View>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.scanButton}>
-              <Text style={styles.scanButtonText}>Scan</Text>
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                backgroundColor: colors.primary,
+                borderRadius: 15,
+                paddingHorizontal: 15,
+                paddingVertical: 10,
+                elevation: 5,
+              }}
+            >
+              <Text
+                style={{ color: colors.white, fontSize: 16, marginRight: 10 }}
+              >
+                Scan
+              </Text>
               <Image source={scanIcon} style={{ width: 20, height: 20 }} />
             </TouchableOpacity>
           </View>
