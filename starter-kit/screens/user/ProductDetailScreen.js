@@ -193,60 +193,48 @@ const ProductDetailScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar></StatusBar>
+      <StatusBar />
       <View style={styles.topBarContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <BackButton />
         </TouchableOpacity>
-
         <View></View>
         <TouchableOpacity
           style={styles.cartIconContainer}
           onPress={() => navigation.navigate("cart")}
         >
-          {cartproduct.length > 0 ? (
+          {cartproduct.length > 0 && (
             <View style={styles.cartItemCountContainer}>
               <Text style={styles.cartItemCountText}>{cartproduct.length}</Text>
             </View>
-          ) : (
-            <></>
           )}
-          <Image source={cartIcon} />
+          <Image source={cartIcon} style={styles.cartIcon} />
         </TouchableOpacity>
       </View>
       <View style={styles.bodyContainer}>
         <View style={styles.productImageContainer}>
-          <Image source={{ uri: productImage }} style={styles.productImage} />
+          <Image source={{ uri: product?.image }} style={styles.productImage} />
         </View>
         <CustomAlert message={error} type={alertType} />
         <View style={styles.productInfoContainer}>
           <View style={styles.productInfoTopContainer}>
-            <View style={styles.productNameContaier}>
+            <View style={styles.productNameContainer}>
               <Text style={styles.productNameText}>{product?.title}</Text>
             </View>
             <View style={styles.infoButtonContainer}>
-              <View style={styles.wishlistButtonContainer}>
-                <TouchableOpacity
-                  disabled={isDisable}
-                  style={styles.iconContainer}
-                  onPress={() => handleWishlistBtn()}
-                >
-                  {onWishlist == false ? (
-                    <Ionicons name="heart" size={25} color={colors.muted} />
-                  ) : (
-                    <Ionicons name="heart" size={25} color={colors.danger} />
-                  )}
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                disabled={isDisable}
+                style={styles.iconContainer}
+                onPress={handleWishlistBtn}
+              >
+                <Ionicons
+                  name="heart"
+                  size={25}
+                  color={onWishlist ? colors.danger : colors.muted}
+                />
+              </TouchableOpacity>
             </View>
             <View style={styles.productDetailContainer}>
-              <View style={styles.productSizeOptionContainer}>
-                {/* <Text style={styles.secondaryTextSm}>Size:</Text> */}
-              </View>
               <View style={styles.productPriceContainer}>
                 <Text style={styles.secondaryTextSm}>Price:</Text>
                 <Text style={styles.primaryTextSm}>{product?.price}$</Text>
@@ -262,18 +250,14 @@ const ProductDetailScreen = ({ navigation, route }) => {
               <View style={styles.counter}>
                 <TouchableOpacity
                   style={styles.counterButtonContainer}
-                  onPress={() => {
-                    handleDecreaseButton(quantity);
-                  }}
+                  onPress={() => handleDecreaseButton(quantity)}
                 >
                   <Text style={styles.counterButtonText}>-</Text>
                 </TouchableOpacity>
                 <Text style={styles.counterCountText}>{quantity}</Text>
                 <TouchableOpacity
                   style={styles.counterButtonContainer}
-                  onPress={() => {
-                    handleIncreaseButton(quantity);
-                  }}
+                  onPress={() => handleIncreaseButton(quantity)}
                 >
                   <Text style={styles.counterButtonText}>+</Text>
                 </TouchableOpacity>
@@ -302,41 +286,60 @@ export default ProductDetailScreen;
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    flexDirecion: "row",
+    flex: 1,
     backgroundColor: colors.light,
     alignItems: "center",
-    justifyContent: "flex-start",
-    flex: 1,
   },
   topBarContainer: {
     width: "100%",
-    display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     padding: 20,
+    backgroundColor: colors.white,
+    elevation: 5,
   },
-  toBarText: {
-    fontSize: 15,
-    fontWeight: "600",
+  cartIconContainer: {
+    position: "relative",
+  },
+  cartIcon: {
+    width: 24,
+    height: 24,
+  },
+  cartItemCountContainer: {
+    position: "absolute",
+    top: -10,
+    left: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 22,
+    width: 22,
+    backgroundColor: colors.danger,
+    borderRadius: 11,
+  },
+  cartItemCountText: {
+    color: colors.white,
+    fontWeight: "bold",
+    fontSize: 10,
   },
   bodyContainer: {
     width: "100%",
-    flexDirecion: "row",
+    flex: 1,
     backgroundColor: colors.light,
     alignItems: "center",
-    justifyContent: "flex-start",
-    flex: 1,
   },
   productImageContainer: {
     width: "100%",
     flex: 2,
-    backgroundColor: colors.light,
-    flexDirecion: "row",
     alignItems: "center",
-    justifyContent: "flex-end",
-    padding: 0,
+    justifyContent: "center",
+    backgroundColor: colors.white,
+    elevation: 10,
+  },
+  productImage: {
+    width: 300,
+    height: 300,
+    resizeMode: "contain",
   },
   productInfoContainer: {
     width: "100%",
@@ -344,135 +347,84 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    flexDirection: "column",
-    justifyContent: "flex-end",
+    paddingTop: 20,
+    elevation: 20,
     alignItems: "center",
-    elevation: 25,
-  },
-  productImage: {
-    height: 300,
-    width: 300,
-    resizeMode: "contain",
   },
   productInfoTopContainer: {
-    marginTop: 20,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    height: "100%",
     width: "100%",
-    flex: 1,
+    paddingHorizontal: 20,
+    alignItems: "center",
   },
-  productInfoBottomContainer: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-end",
-    backgroundColor: colors.light,
+  productNameContainer: {
     width: "100%",
-    height: 140,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-  },
-  productButtonContainer: {
-    padding: 20,
-    paddingLeft: 40,
-    paddingRight: 40,
-    backgroundColor: colors.white,
-    width: "100%",
-    height: 100,
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  productNameContaier: {
-    padding: 5,
-    paddingLeft: 20,
-    display: "flex",
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "flex-start",
+    marginBottom: 10,
   },
   productNameText: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
+    color: colors.dark,
   },
   infoButtonContainer: {
-    padding: 5,
-    paddingRight: 0,
-    display: "flex",
     width: "100%",
     flexDirection: "row",
-    alignItems: "center",
     justifyContent: "flex-end",
   },
-  wishlistButtonContainer: {
-    height: 50,
-    width: 80,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: colors.light,
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
-  },
-  productDetailContainer: {
-    padding: 5,
-    paddingLeft: 20,
-    paddingRight: 20,
-    display: "flex",
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    elevation: 5,
-  },
-  secondaryTextSm: { fontSize: 15, fontWeight: "bold" },
-  primaryTextSm: { color: colors.primary, fontSize: 15, fontWeight: "bold" },
-  productDescriptionContainer: {
-    display: "flex",
-    width: "100%",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
   iconContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
     width: 40,
     height: 40,
-    backgroundColor: colors.white,
     borderRadius: 20,
+    backgroundColor: colors.white,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 5,
+  },
+  productDetailContainer: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.muted,
+  },
+  productPriceContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  secondaryTextSm: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.dark,
+  },
+  primaryTextSm: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.primary,
+    marginLeft: 5,
+  },
+  productDescriptionContainer: {
+    width: "100%",
+    marginTop: 10,
+  },
+  productInfoBottomContainer: {
+    width: "100%",
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    alignItems: "center",
   },
   counterContainer: {
     width: "100%",
-    display: "flex",
     flexDirection: "row",
     justifyContent: "flex-end",
-    alignItems: "center",
-    marginRight: 50,
+    marginBottom: 10,
   },
   counter: {
-    display: "flex",
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
-    marginBottom: 5,
   },
   counterButtonContainer: {
-    display: "flex",
     width: 30,
     height: 30,
-    marginLeft: 10,
-    marginRight: 10,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.muted,
@@ -487,28 +439,11 @@ const styles = StyleSheet.create({
   counterCountText: {
     fontSize: 20,
     fontWeight: "bold",
+    color: colors.dark,
+    marginHorizontal: 10,
   },
-  cartIconContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  cartItemCountContainer: {
-    position: "absolute",
-    zIndex: 10,
-    top: -10,
-    left: 10,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: 22,
-    width: 22,
-    backgroundColor: colors.danger,
-    borderRadius: 11,
-  },
-  cartItemCountText: {
-    color: colors.white,
-    fontWeight: "bold",
-    fontSize: 10,
+  productButtonContainer: {
+    width: "100%",
+    paddingTop: 10,
   },
 });
