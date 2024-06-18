@@ -1,21 +1,24 @@
 import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 
 const ChairModel: React.FC = () => {
   return (
-    <div style={styles.centered}>
-      <h1>This is chair model</h1>
-    </div>
+    <View style={styles.centered}>
+      <Text style={styles.text}>This is chair model</Text>
+    </View>
   );
 };
 
-const styles = {
+const styles = StyleSheet.create({
   centered: {
-    position: "absolute" as "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    textAlign: "center" as "center",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
-};
+  text: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+});
 
 export default ChairModel;

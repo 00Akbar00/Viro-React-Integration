@@ -9,6 +9,8 @@ import {
 import React, { useState, useEffect } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
+import heartIcon from "../../assets/icons/heart.png";
+import ARicon from "../../assets/icons/ArButton.png";
 import BackButton from "../../components/BackButton";
 import cartIcon from "../../assets/icons/cart_beg.png";
 import { colors, network } from "../../constants";
@@ -18,6 +20,7 @@ import { bindActionCreators } from "redux";
 import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CustomAlert from "../../components/CustomAlert/CustomAlert";
+import { products } from "../data";
 
 const ProductDetailScreen = ({ navigation, route }) => {
   const { product } = route.params;
@@ -180,6 +183,34 @@ const ProductDetailScreen = ({ navigation, route }) => {
     }
   };
 
+  // logic for navigating to specific pages
+  const productPageMapping = {
+    1: "sofaModel", // Use the product ID instead of 'sofa-product-id'
+    2: "chairModel", // Use the product ID instead of 'chair-product-id'
+    4: "tableModel", // Use the product ID instead of 'table-product-id'
+  };
+
+  // products.forEach((product) => {
+  //   if (product.title === "Modern Sofa") {
+  //     productPageMapping[product._id] = "sofaModel";
+  //   } else if (product.title === "Classic Chair") {
+  //     productPageMapping[product._id] = "ChairModel"; // Assuming you have a page named ChairModel
+  //   } else if (product.title === "Wooden Stool") {
+  //     productPageMapping[product._id] = "StoolPage";
+  //   } else if (product.title === "Dining Table") {
+  //     productPageMapping[product._id] = "TablePage";
+  //   }
+  // });
+
+  const handleNavigateToSpecificPage = () => {
+    const page = productPageMapping[product.id]; // Accessing 'id' instead of '_id'
+    if (page) {
+      navigation.navigate(page);
+    } else {
+      console.log("No page associated with this product.");
+    }
+  };
+
   //set quantity, avaiableQuantity, product image and fetch wishlist on initial render
   useEffect(() => {
     setQuantity(0);
@@ -225,12 +256,21 @@ const ProductDetailScreen = ({ navigation, route }) => {
               <TouchableOpacity
                 disabled={isDisable}
                 style={styles.iconContainer}
+                onPress={handleNavigateToSpecificPage} // Add your handler for the new button here
+              >
+                <Image
+                  source={ARicon} // Use the custom icon
+                  style={styles.customIcon} // Add styles for the custom icon
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                disabled={isDisable}
+                style={styles.iconContainer}
                 onPress={handleWishlistBtn}
               >
-                <Ionicons
-                  name="heart"
-                  size={25}
-                  color={onWishlist ? colors.danger : colors.muted}
+                <Image
+                  source={heartIcon} // Use the custom icon
+                  style={styles.customIcon} // Add styles for the custom icon
                 />
               </TouchableOpacity>
             </View>
@@ -378,6 +418,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     elevation: 5,
+    marginRight: 10, // Add margin to separate the buttons
+  },
+  customIcon: {
+    width: 25,
+    height: 25,
+    resizeMode: "contain",
   },
   productDetailContainer: {
     width: "100%",

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import LoginScreen from "../screens/auth/LoginScreen";
 import SignupScreen from "../screens/auth/SignupScreen";
@@ -26,6 +26,9 @@ import ViewUsersScreen from "../screens/admin/ViewUsersScreen";
 import CategoriesScreen from "../screens/user/CategoriesScreen";
 import EditCategoryScreen from "../screens/admin/EditCategoryScreen";
 import MyWishlistScreen from "../screens/profile/MyWishlistScreen";
+import ChairModel from "../screens/Models/ChairModel";
+import SofaModel from "../screens/Models/SofaModel";
+import TableModel from "../screens/Models/TableModel";
 
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +47,9 @@ const Routes = () => {
         <Stack.Screen name="myaccount" component={MyAccountScreen} />
         <Stack.Screen name="mywishlist" component={MyWishlistScreen} />
         <Stack.Screen name="dashboard" component={DashboardScreen} />
+        <Stack.Screen name="chairModel" component={ChairModel} />
+        <Stack.Screen name="sofaModel" component={SofaModel} />
+        <Stack.Screen name="tableModel" component={TableModel} />
         <Stack.Screen name="addproduct" component={AddProductScreen} />
         <Stack.Screen name="viewproduct" component={ViewProductScreen} />
         <Stack.Screen name="editproduct" component={EditProductScreen} />

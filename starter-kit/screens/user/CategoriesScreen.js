@@ -1,3 +1,5 @@
+// CategoriesScreen.js
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Image,
@@ -9,222 +11,133 @@ import {
   RefreshControl,
   Dimensions,
 } from "react-native";
-import React, { useState, useEffect } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import cartIcon from "../../assets/icons/cart_beg.png";
-import emptyBox from "../../assets/image/emptybox.png";
-import { colors, network } from "../../constants";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
 import CustomIconButton from "../../components/CustomIconButton/CustomIconButton";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import CustomInput from "../../components/CustomInput";
+import BackButton from "../../components/BackButton";
+import { colors, network } from "../../constants";
+import cartIcon from "../../assets/icons/cart_beg.png";
+import emptyBox from "../../assets/image/emptybox.png";
 import SofaLine from "../../assets/icons/sofa-line.png";
 import Chairs from "../../assets/icons/chair.png";
 import Stools from "../../assets/icons/stool.png";
 import Tables from "../../assets/icons/table.png";
-import icon from "react-native-vector-icons/MaterialCommunityIcons";
-import BackButton from "../../components/BackButton";
+import { products } from "../data";
 
 const CategoriesScreen = ({ navigation, route }) => {
   const { categoryID } = route.params;
-
   const [isLoading, setLoading] = useState(true);
-  const [products, setProducts] = useState([]);
-  const [refeshing, setRefreshing] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [label, setLabel] = useState("Loading...");
   const [error, setError] = useState("");
   const [foundItems, setFoundItems] = useState([]);
   const [filterItem, setFilterItem] = useState("");
-
-  //get the dimenssions of active window
   const [windowWidth, setWindowWidth] = useState(
     Dimensions.get("window").width
   );
   const windowHeight = Dimensions.get("window").height;
-
-  //initialize the cartproduct with redux data
   const cartproduct = useSelector((state) => state.product);
   const dispatch = useDispatch();
-
   const { addCartItem } = bindActionCreators(actionCreaters, dispatch);
-
-  //method to navigate to product detail screen of specific product
-  const handleProductPress = (product) => {
-    navigation.navigate("productdetail", { product: product });
-  };
-
-  //method to add the product to cart (redux)
-  const handleAddToCat = (product) => {
-    addCartItem(product);
-  };
-
-  //method call on pull refresh
-  const handleOnRefresh = () => {
-    setRefreshing(true);
-    fetchProduct();
-    setRefreshing(false);
-  };
-
-  var headerOptions = {
-    method: "GET",
-    redirect: "follow",
-  };
   const category = [
-    {
-      _id: "62fe244f58f7aa8230817f89",
-      title: "Sofas",
-      image: SofaLine,
-    },
-    {
-      _id: "62fe243858f7aa8230817f86",
-      title: "Chairs",
-      image: Chairs,
-    },
-    {
-      _id: "62fe241958f7aa8230817f83",
-      title: "Stools",
-      image: Stools,
-    },
-    {
-      _id: "62fe246858f7aa8230817f8c",
-      title: "Tables",
-      image: Tables,
-    },
+    { _id: "62fe244f58f7aa8230817f89", title: "Sofas", image: SofaLine },
+    { _id: "62fe243858f7aa8230817f86", title: "Chairs", image: Chairs },
+    { _id: "62fe241958f7aa8230817f83", title: "Stools", image: Stools },
+    { _id: "62fe246858f7aa8230817f8c", title: "Tables", image: Tables },
   ];
 
   const [selectedTab, setSelectedTab] = useState(category[0]);
 
-  //method to fetch the product from server using API call
-  const fetchProduct = () => {
-    var headerOptions = {
-      method: "GET",
-      redirect: "follow",
-    };
-    fetch(`${network.serverip}/products`, headerOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.success) {
-          setProducts(result.data);
-          setFoundItems(result.data);
-          setError("");
-        } else {
-          setError(result.message);
-        }
-      })
-      .catch((error) => {
-        setError(error.message);
-        console.log("error", error);
-      });
+  useEffect(() => {
+    if (categoryID) setSelectedTab(category.find((c) => c._id === categoryID));
+  }, [categoryID]);
+
+  useEffect(() => {
+    filter();
+  }, [filterItem]);
+
+  const handleProductPress = (product) => {
+    navigation.navigate("productdetail", { product });
   };
 
-  //listener call on tab focus and initlize categoryID
-  navigation.addListener("focus", () => {
-    if (categoryID) {
-      setSelectedTab(categoryID);
-    }
-  });
+  const handleAddToCat = (product) => {
+    addCartItem(product);
+  };
 
-  //method to filter the product according to user search in selected category
+  const handleOnRefresh = () => {
+    setRefreshing(true);
+    // fetchProduct();
+    setRefreshing(false);
+  };
+
   const filter = () => {
-    const keyword = filterItem;
-    if (keyword !== "") {
-      const results = products.filter((product) => {
-        return product?.title.toLowerCase().includes(keyword.toLowerCase());
-      });
-
-      setFoundItems(results);
+    const keyword = filterItem.toLowerCase();
+    if (keyword) {
+      setFoundItems(
+        products.filter((product) =>
+          product.title.toLowerCase().includes(keyword)
+        )
+      );
     } else {
       setFoundItems(products);
     }
   };
 
-  //render whenever the value of filterItem change
-  useEffect(() => {
-    filter();
-  }, [filterItem]);
-
-  //fetch the product on initial render
-  useEffect(() => {
-    fetchProduct();
-  }, []);
-
   return (
     <View style={styles.container}>
-      <StatusBar></StatusBar>
+      <StatusBar />
       <View style={styles.topBarContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.jumpTo("home");
-          }}
-        >
+        <TouchableOpacity onPress={() => navigation.jumpTo("home")}>
           <BackButton />
         </TouchableOpacity>
-
-        <View></View>
+        <View />
         <TouchableOpacity
           style={styles.cartIconContainer}
           onPress={() => navigation.navigate("cart")}
         >
-          {cartproduct?.length > 0 ? (
+          {cartproduct.length > 0 && (
             <View style={styles.cartItemCountContainer}>
               <Text style={styles.cartItemCountText}>{cartproduct.length}</Text>
             </View>
-          ) : (
-            <></>
           )}
           <Image source={cartIcon} />
         </TouchableOpacity>
       </View>
       <View style={styles.bodyContainer}>
-        <View style={{ padding: 0, paddingLeft: 20, paddingRight: 20 }}>
+        <View style={styles.searchContainer}>
           <CustomInput
             radius={5}
-            placeholder={"Search..."}
+            placeholder="Search..."
             value={filterItem}
             setValue={setFilterItem}
           />
         </View>
         <FlatList
           data={category}
-          keyExtractor={(index, item) => `${index}-${item}`}
+          keyExtractor={(item) => item._id}
           horizontal
-          style={{ flexGrow: 0 }}
-          contentContainerStyle={{ padding: 10 }}
+          style={styles.categoryList}
+          contentContainerStyle={styles.categoryListContent}
           showsHorizontalScrollIndicator={false}
           renderItem={({ item: tab }) => (
             <CustomIconButton
-              key={tab}
+              key={tab._id}
               text={tab.title}
               image={tab.image}
-              active={selectedTab?.title === tab.title ? true : false}
-              onPress={() => {
-                setSelectedTab(tab);
-              }}
+              active={selectedTab?._id === tab._id}
+              onPress={() => setSelectedTab(tab)}
             />
           )}
         />
-
-        {foundItems.filter(
-          (product) => product?.category?._id === selectedTab?._id
-        ).length === 0 ? (
+        {foundItems.filter((product) => product.category === selectedTab?._id)
+          .length === 0 ? (
           <View style={styles.noItemContainer}>
-            <View
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: colors.white,
-                height: 150,
-                width: 150,
-                borderRadius: 10,
-              }}
-            >
-              <Image
-                source={emptyBox}
-                style={{ height: 80, width: 80, resizeMode: "contain" }}
-              />
+            <View style={styles.emptyBox}>
+              <Image source={emptyBox} style={styles.emptyBoxImage} />
               <Text style={styles.emptyBoxText}>
                 There no product in this category
               </Text>
@@ -233,16 +146,16 @@ const CategoriesScreen = ({ navigation, route }) => {
         ) : (
           <FlatList
             data={foundItems.filter(
-              (product) => product?.category?._id === selectedTab?._id
+              (product) => product.category === selectedTab?._id
             )}
             refreshControl={
               <RefreshControl
-                refreshing={refeshing}
+                refreshing={refreshing}
                 onRefresh={handleOnRefresh}
               />
             }
-            keyExtractor={(index, item) => `${index}-${item}`}
-            contentContainerStyle={{ margin: 10 }}
+            keyExtractor={(item) => item.id.toString()}
+            contentContainerStyle={styles.productListContent}
             numColumns={2}
             renderItem={({ item: product }) => (
               <View
@@ -252,7 +165,7 @@ const CategoriesScreen = ({ navigation, route }) => {
                 ]}
               >
                 <ProductCard
-                  cardSize={"large"}
+                  cardSize="large"
                   name={product.title}
                   image={`${network.serverip}/uploads/${product.image}`}
                   price={product.price}
@@ -260,7 +173,7 @@ const CategoriesScreen = ({ navigation, route }) => {
                   onPress={() => handleProductPress(product)}
                   onPressSecondary={() => handleAddToCat(product)}
                 />
-                <View style={styles.emptyView}></View>
+                <View style={styles.emptyView} />
               </View>
             )}
           />
@@ -270,40 +183,21 @@ const CategoriesScreen = ({ navigation, route }) => {
   );
 };
 
-export default CategoriesScreen;
-
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    flexDirecion: "row",
     backgroundColor: colors.light,
     alignItems: "center",
-    justifyContent: "flex-start",
     flex: 1,
   },
   topBarContainer: {
     width: "100%",
-    display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     padding: 20,
   },
-  toBarText: {
-    fontSize: 15,
-    fontWeight: "600",
-  },
-  bodyContainer: {
-    flex: 1,
-    width: "100%",
-    flexDirecion: "row",
-    backgroundColor: colors.light,
-
-    justifyContent: "flex-start",
-    flex: 1,
-  },
   cartIconContainer: {
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -312,7 +206,6 @@ const styles = StyleSheet.create({
     zIndex: 10,
     top: -10,
     left: 10,
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
     height: 22,
@@ -325,31 +218,56 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 10,
   },
-  productCartContainer: {
-    display: "flex",
-    justifyContent: "center",
+  bodyContainer: {
+    flex: 1,
+    width: "100%",
+    justifyContent: "flex-start",
+  },
+  searchContainer: {
+    padding: 0,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    borderRadius: 10,
-    margin: 5,
-    padding: 5,
-    paddingBottom: 0,
-    paddingTop: 0,
-    marginBottom: 0,
+    paddingHorizontal: 20,
+  },
+  categoryList: {
+    marginVertical: 20,
+  },
+  categoryListContent: {
+    paddingHorizontal: 10,
+  },
+  productListContent: {
+    paddingHorizontal: 10,
   },
   noItemContainer: {
     width: "100%",
     flex: 1,
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    textAlign: "center",
+  },
+  emptyBox: {
+    width: 200,
+    height: 200,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  emptyBoxImage: {
+    resizeMode: "contain",
+    width: "100%",
   },
   emptyBoxText: {
-    fontSize: 11,
-    color: colors.muted,
+    color: colors.darkGray,
+    fontSize: 16,
     textAlign: "center",
+    marginTop: 10,
+  },
+  productCartContainer: {
+    marginBottom: 10,
   },
   emptyView: {
-    height: 20,
+    margin: 3,
   },
 });
+
+export default CategoriesScreen;
