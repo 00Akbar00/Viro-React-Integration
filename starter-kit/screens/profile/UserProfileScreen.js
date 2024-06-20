@@ -1,19 +1,18 @@
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
   StatusBar,
   TouchableOpacity,
+  Image,
 } from "react-native";
-import React, { useEffect, useState } from "react";
 import UserProfileCard from "../../components/UserProfileCard/UserProfileCard";
 import Ionicons from "react-native-vector-icons/Ionicons";
-
-import BackButton from "../../components/BackButton";
-import OptionList from "../../components/OptionList/OptionList";
-import { colors } from "../../constants";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { colors } from "../../constants";
 import MenuBar from "../../components/MenuButton";
+import BackButton from "../../components/BackButton";
 
 const UserProfileScreen = ({ navigation, route }) => {
   const [userInfo, setUserInfo] = useState({});
@@ -27,13 +26,14 @@ const UserProfileScreen = ({ navigation, route }) => {
     }
   };
 
-  // covert  the user to Json object on initial render
+  // Convert the user to JSON object on initial render
   useEffect(() => {
     convertToJSON(user);
   }, []);
+
   return (
     <View style={styles.container}>
-      <StatusBar style="auto"></StatusBar>
+      <StatusBar style="auto" />
       <View style={styles.TopBarContainer}>
         <TouchableOpacity>
           <MenuBar />
@@ -42,7 +42,7 @@ const UserProfileScreen = ({ navigation, route }) => {
       <View style={styles.screenNameContainer}>
         <Text style={styles.screenNameText}>Profile</Text>
       </View>
-      <View style={styles.UserProfileCardContianer}>
+      <View style={styles.UserProfileCardContainer}>
         <UserProfileCard
           Icon={Ionicons}
           name={userInfo?.name}
@@ -50,41 +50,42 @@ const UserProfileScreen = ({ navigation, route }) => {
         />
       </View>
       <View style={styles.OptionsContainer}>
-        <OptionList
-          text={"My Account"}
-          Icon={Ionicons}
-          iconName={"person"}
+        <TouchableOpacity
+          style={styles.optionItem}
           onPress={() => navigation.navigate("myaccount", { user: userInfo })}
-        />
-        <OptionList
-          text={"Wishlist"}
-          Icon={Ionicons}
-          iconName={"heart"}
+        >
+          <Image
+            source={require("../../assets/icons/user.png")}
+            style={styles.icon}
+          />
+          <Text style={styles.optionText}>My Account</Text>
+          <Ionicons name="chevron-forward" size={20} color={colors.muted} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.optionItem}
           onPress={() => navigation.navigate("mywishlist", { user: userInfo })}
-        />
-        {/* !For future use --- */}
-        {/* <OptionList
-          text={"Settings"}
-          Icon={Ionicons}
-          iconName={"settings-sharp"}
-          onPress={() => console.log("working....")}
-        />
-        <OptionList
-          text={"Help Center"}
-          Icon={Ionicons}
-          iconName={"help-circle"}
-          onPress={() => console.log("working....")}
-        /> */}
-        {/* !For future use ---- End */}
-        <OptionList
-          text={"Logout"}
-          Icon={Ionicons}
-          iconName={"log-out"}
+        >
+          <Image
+            source={require("../../assets/icons/heart.png")}
+            style={styles.icon}
+          />
+          <Text style={styles.optionText}>Wishlist</Text>
+          <Ionicons name="chevron-forward" size={20} color={colors.muted} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.optionItem}
           onPress={async () => {
             await AsyncStorage.removeItem("authUser");
             navigation.navigate("login");
           }}
-        />
+        >
+          <Image
+            source={require("../../assets/icons/logout.png")}
+            style={styles.icon}
+          />
+          <Text style={styles.optionText}>Logout</Text>
+          <Ionicons name="chevron-forward" size={20} color={colors.muted} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -95,7 +96,7 @@ export default UserProfileScreen;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    flexDirecion: "row",
+    flexDirection: "column",
     backgroundColor: colors.light,
     alignItems: "center",
     justifyContent: "flex-start",
@@ -104,23 +105,22 @@ const styles = StyleSheet.create({
   },
   TopBarContainer: {
     width: "100%",
-    display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
   },
-  UserProfileCardContianer: {
+  UserProfileCardContainer: {
     width: "100%",
     height: "25%",
+    marginVertical: 20,
   },
   screenNameContainer: {
     marginTop: 10,
     width: "100%",
-    display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    marginBottom: 10,
+    marginBottom: 20,
   },
   screenNameText: {
     fontSize: 30,
@@ -129,5 +129,29 @@ const styles = StyleSheet.create({
   },
   OptionsContainer: {
     width: "100%",
+  },
+  optionItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    backgroundColor: colors.white,
+    borderRadius: 10,
+    marginVertical: 5,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    marginRight: 15,
+  },
+  optionText: {
+    fontSize: 18,
+    color: colors.dark,
+    flex: 1,
   },
 });

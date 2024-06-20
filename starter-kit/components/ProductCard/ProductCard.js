@@ -1,7 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 import React from "react";
 import { colors, network } from "../../constants";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
+import addCartIcon from "../../assets/icons/add-to-cart.png";
 
 const ProductCard = ({
   name,
@@ -26,7 +27,7 @@ const ProductCard = ({
             0,
             10
           )}..`}</Text>
-          <Text style={styles.primaryTextSm}>{price}$</Text>
+          <Text style={styles.primaryTextSm}>{price}Rs</Text>
         </View>
         <View>
           {quantity > 0 ? (
@@ -34,11 +35,17 @@ const ProductCard = ({
               style={styles.iconContainer}
               onPress={onPressSecondary}
             >
-              <Ionicons name="cart" size={20} color="white" />
+              <Image
+                source={addCartIcon}
+                style={{ width: 20, height: 20, tintColor: "#FFFFFF" }}
+              />
             </TouchableOpacity>
           ) : (
             <TouchableOpacity style={styles.iconContainerDisable} disabled>
-              <Ionicons name="cart" size={20} color="white" />
+              <Image
+                source={addCartIcon}
+                style={{ width: 20, height: 20, tintColor: "#FFFFFF" }}
+              />
             </TouchableOpacity>
           )}
         </View>
@@ -51,32 +58,36 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.white,
+    backgroundColor: "#FFFFFF", // Pure white background
     width: 150,
-    height: 200,
-    borderRadius: 10,
+    height: 210, // Slightly taller for better spacing
+    borderRadius: 12, // More rounded corners for a modern look
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
     alignItems: "center",
-    padding: 5,
-    elevation: 5,
+    padding: 8, // Increased padding for better spacing
+    elevation: 3, // Subtle shadow for a clean look
+    shadowColor: "#000", // Black shadow for contrast
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   imageContainer: {
-    backgroundColor: colors.light,
+    backgroundColor: "#F5F5F5", // Light gray background for image container
     width: "100%",
     height: 140,
-    borderRadius: 10,
+    borderRadius: 10, // Slightly rounded corners
     display: "flex",
     flexDirection: "column",
-    justifyContent: "flex-end",
+    justifyContent: "center", // Centered content
     alignItems: "center",
     padding: 5,
-    paddingBottom: 0,
   },
   productImage: {
     height: 120,
     width: 120,
+    borderRadius: 8, // Rounded corners for the image
   },
   infoContainer: {
     width: "100%",
@@ -84,35 +95,45 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 5,
+    marginTop: 10, // Space between image and text
+    paddingHorizontal: 4,
   },
   secondaryTextSm: {
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: "600", // Semi-bold for a professional look
+    color: "#424242", // Dark gray text color
   },
   primaryTextSm: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: "bold",
-    color: colors.primary,
+    color: "#006400", // Primary color for price
   },
   iconContainer: {
-    backgroundColor: colors.primary,
-    width: 30,
-    height: 30,
-    borderRadius: 5,
+    backgroundColor: "#424242", // Gray color for add to cart button
+    width: 35.5,
+    height: 35.5,
+    borderRadius: 17,
     display: "flex",
-
     justifyContent: "center",
     alignItems: "center",
+    elevation: 3, // Slight shadow for the icon
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   iconContainerDisable: {
-    backgroundColor: colors.muted,
-    width: 30,
-    height: 30,
+    backgroundColor: "#BDBDBD", // Muted gray for disabled state
+    width: 35,
+    height: 35,
     borderRadius: 5,
     display: "flex",
-
     justifyContent: "center",
     alignItems: "center",
+    elevation: 2, // Slight shadow for the icon
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
 });

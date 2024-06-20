@@ -4,7 +4,8 @@ import { colors, network } from "../../constants";
 
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import  MaterialCommunityIcons  from "react-native-vector-icons/MaterialCommunityIcons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import bin from "../../assets/icons/bin.png";
 
 const CartProductList = ({
   image,
@@ -19,10 +20,9 @@ const CartProductList = ({
     return (
       <View style={styles.deleteButtonContainer}>
         <TouchableOpacity onPress={handleDelete}>
-          <MaterialCommunityIcons
-            name="delete"
-            size={25}
-            color={colors.primary}
+          <Image
+            source={bin} // Use the custom delete icon
+            style={{ width: 25, height: 25 }} // Adjust size and color if needed
           />
         </TouchableOpacity>
       </View>

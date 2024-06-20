@@ -17,6 +17,10 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useSelector, useDispatch } from "react-redux";
 import * as actionCreaters from "../../states/actionCreaters/actionCreaters";
 import { bindActionCreators } from "redux";
+import walletIcon from "../../assets/icons/wallet.png";
+import BackButton from "../../components/BackButton";
+import box from "../../assets/icons/box.png";
+import deleteIcon from "../../assets/icons/bin.png";
 
 const CartScreen = ({ navigation }) => {
   const cartproduct = useSelector((state) => state.product);
@@ -62,34 +66,20 @@ const CartScreen = ({ navigation }) => {
       <StatusBar></StatusBar>
       <View style={styles.topBarContainer}>
         <View style={styles.cartInfoContainerTopBar}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.goBack();
-            }}
-          >
-            <Ionicons
-              name="arrow-back-circle-outline"
-              size={30}
-              color={colors.muted}
-            />
-          </TouchableOpacity>
+          <BackButton onPress={() => navigation.goBack()} />
           <View style={styles.cartInfoTopBar}>
             <Text>Your Cart</Text>
             <Text>{cartproduct.length} Items</Text>
           </View>
         </View>
 
-        <View></View>
         <TouchableOpacity>
           <Image source={cartIcon} />
         </TouchableOpacity>
       </View>
       {cartproduct.length === 0 ? (
         <View style={styles.cartProductListContiainerEmpty}>
-          {/* <Image
-            source={CartEmpty}
-            style={{ height: 400, resizeMode: "contain" }}
-          /> */}
+          <Image source={box} style={{ height: 400, resizeMode: "contain" }} />
           <Text style={styles.secondaryTextSmItalic}>"Cart is empty"</Text>
         </View>
       ) : (
@@ -115,6 +105,7 @@ const CartScreen = ({ navigation }) => {
               handleDelete={() => {
                 deleteItem(item._id);
               }}
+              deleteIcon={deleteIcon} // Pass the delete icon to the component
             />
           ))}
           <View style={styles.emptyView}></View>
@@ -122,16 +113,15 @@ const CartScreen = ({ navigation }) => {
       )}
       <View style={styles.cartBottomContainer}>
         <View style={styles.cartBottomLeftContainer}>
-          <View style={styles.IconContainer}>
-            <MaterialIcons
-              name="featured-play-list"
-              size={24}
-              color={colors.primary}
+          <View style={styles.iconContainer}>
+            <Image
+              source={walletIcon} // Use the imported custom icon
+              style={{ width: 24, height: 24, tintColor: colors.primary }}
             />
           </View>
           <View>
             <Text style={styles.cartBottomPrimaryText}>Total</Text>
-            <Text style={styles.cartBottomSecondaryText}>{totalPrice}$</Text>
+            <Text style={styles.cartBottomSecondaryText}>{totalPrice}Rs</Text>
           </View>
         </View>
         <View style={styles.cartBottomRightContainer}>

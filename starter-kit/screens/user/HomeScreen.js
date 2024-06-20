@@ -134,14 +134,15 @@ const HomeScreen = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      <StatusBar></StatusBar>
+      <StatusBar barStyle="dark-content" />
       <View style={styles.topBarContainer}>
         <TouchableOpacity disabled>
           <MenuBar />
         </TouchableOpacity>
-        <View style={styles.topbarlogoContainer}>
+        <View style={styles.topBarLogoContainer}>
+          <Text style={styles.topBarText}>AR</Text>
           <Image source={easybuylogo} style={styles.logo} />
-          <Text style={styles.toBarText}>AR store</Text>
+          <Text style={styles.topBarText}>Store</Text>
         </View>
         <TouchableOpacity
           style={styles.cartIconContainer}
@@ -152,7 +153,7 @@ const HomeScreen = ({ navigation, route }) => {
               <Text style={styles.cartItemCountText}>{cartproduct.length}</Text>
             </View>
           ) : null}
-          <Image source={cartIcon} />
+          <Image source={cartIcon} style={styles.cartIcon} />
         </TouchableOpacity>
       </View>
       <View style={styles.bodyContainer}>
@@ -162,35 +163,11 @@ const HomeScreen = ({ navigation, route }) => {
               onTextChange={(text) => console.log(text)}
               onItemSelect={(item) => handleProductPress(item)}
               defaultIndex={0}
-              containerStyle={{
-                borderRadius: 15,
-                width: "105%",
-                elevation: 4,
-                position: "absolute",
-                zIndex: 20,
-                top: -25,
-                maxHeight: 300,
-                backgroundColor: colors.light,
-              }}
-              textInputStyle={{
-                borderRadius: 15,
-                padding: 10,
-                borderWidth: 0,
-                backgroundColor: colors.white,
-                fontSize: 16,
-              }}
-              itemStyle={{
-                padding: 10,
-                marginTop: 2,
-                backgroundColor: colors.white,
-                borderColor: colors.muted,
-              }}
-              itemTextStyle={{
-                color: colors.muted,
-              }}
-              itemsContainerStyle={{
-                maxHeight: "100%",
-              }}
+              containerStyle={styles.dropdownContainer}
+              textInputStyle={styles.dropdownTextInput}
+              itemStyle={styles.dropdownItem}
+              itemTextStyle={styles.dropdownItemText}
+              itemsContainerStyle={styles.dropdownItemsContainer}
               items={searchItems}
               placeholder="Search..."
               resetValue={false}
@@ -198,34 +175,20 @@ const HomeScreen = ({ navigation, route }) => {
             />
           </View>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                backgroundColor: colors.primary,
-                borderRadius: 15,
-                paddingHorizontal: 15,
-                paddingVertical: 10,
-                elevation: 5,
-              }}
-            >
-              <Text
-                style={{ color: colors.white, fontSize: 16, marginRight: 10 }}
-              >
-                Scan
-              </Text>
-              <Image source={scanIcon} style={{ width: 20, height: 20 }} />
+            <TouchableOpacity style={styles.scanButton}>
+              <Text style={styles.scanButtonText}>Scan</Text>
+              <Image source={scanIcon} style={styles.scanIcon} />
             </TouchableOpacity>
           </View>
         </View>
         <ScrollView nestedScrollEnabled={true}>
-          <View style={styles.promotiomSliderContainer}>
+          <View style={styles.promotionSliderContainer}>
             <SliderBox
               images={slides}
-              sliderBoxHeight={140}
+              sliderBoxHeight={142}
               dotColor={colors.primary}
               inactiveDotColor={colors.muted}
-              paginationBoxVerticalPadding={10}
+              paginationBoxVerticalPadding={7}
               autoplayInterval={6000}
             />
           </View>
@@ -240,7 +203,7 @@ const HomeScreen = ({ navigation, route }) => {
               data={category}
               keyExtractor={(item, index) => `${item}-${index}`}
               renderItem={({ item, index }) => (
-                <View style={{ marginBottom: 10 }} key={index}>
+                <View style={styles.categoryItemContainer} key={index}>
                   <CustomIconButton
                     key={index}
                     text={item.title}
@@ -278,10 +241,7 @@ const HomeScreen = ({ navigation, route }) => {
                 data={products.slice(0, 4)}
                 keyExtractor={(item) => item._id}
                 renderItem={({ item, index }) => (
-                  <View
-                    key={item._id}
-                    style={{ marginLeft: 5, marginBottom: 10, marginRight: 5 }}
-                  >
+                  <View key={item._id} style={styles.productCard}>
                     <ProductCard
                       name={item.title}
                       image={`${network.serverip}/uploads/${item.image}`}
@@ -307,31 +267,32 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: "#F5F5F5", // Light background color
   },
   topBarContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 18,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.light,
+    paddingVertical: 1,
+    paddingHorizontal: 16,
+    borderBottomWidth: -3,
+    borderBottomColor: "#E0E0E0", // Light gray border
+    backgroundColor: "#FFF", // White background for top bar
   },
-  topbarlogoContainer: {
+  topBarLogoContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
   logo: {
-    height: 50,
-    width: 50,
+    height: 60,
+    width: 60,
     resizeMode: "contain",
-    marginRight: 10,
+    marginHorizontal: 5,
   },
-  toBarText: {
+  topBarText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#252422",
+    color: "#424242", // Dark gray text
   },
   cartIconContainer: {
     flexDirection: "row",
@@ -340,62 +301,130 @@ const styles = StyleSheet.create({
   },
   cartItemCountContainer: {
     position: "absolute",
-    top: -10,
-    left: 10,
-    backgroundColor: colors.primary,
-    borderRadius: 11,
-    padding: 4,
+    top: -12,
+    left: 13,
+    backgroundColor: "#424242", // Light black color
+    borderRadius: 40,
+    padding: 3,
+    elevation: 3, // Add slight shadow
+    shadowColor: "#000", // Shadow color
+    shadowOffset: { width: 0, height: 1 }, // Shadow offset
+    shadowOpacity: 0.3, // Shadow opacity
+    shadowRadius: 1, // Shadow radius
   },
   cartItemCountText: {
-    color: colors.light,
+    color: "#FFF",
     fontSize: 12,
     fontWeight: "bold",
   },
+  cartIcon: {
+    width: 24,
+    height: 24,
+    tintColor: "#424242", // Dark gray tint
+  },
   bodyContainer: {
     flex: 1,
+    padding: 10,
   },
   searchContainer: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 14,
-    marginTop: 10,
+    marginVertical: 10,
   },
   inputContainer: {
     flex: 1,
-    marginRight: 10,
+    marginRight: 9,
   },
   buttonContainer: {
     marginLeft: 10,
-    marginRight: 10,
+  },
+  dropdownContainer: {
+    borderRadius: 12, // Slightly sharper edges for a modern look
+    width: "100%",
+    elevation: 6, // Increased elevation for a more prominent shadow
+    position: "absolute",
+    zIndex: 20,
+    top: -25,
+    maxHeight: 300,
+    backgroundColor: "#FFFFFF", // Pure white background
+    shadowColor: "#000", // Black shadow for better contrast
+    shadowOffset: { width: 0, height: 2 }, // Slightly larger shadow offset
+    shadowOpacity: 0.1, // Reduced shadow opacity for subtlety
+    shadowRadius: 4, // Larger shadow radius for a softer edge
+  },
+  dropdownTextInput: {
+    borderRadius: 12, // Consistent with container's border radius
+    padding: 12, // Slightly larger padding for better touch area
+    borderWidth: 0,
+    backgroundColor: "#F9F9F9", // Very light gray background for input
+    fontSize: 16,
+    color: "#424242", // Dark gray text for better readability
+    shadowColor: "#000", // Light shadow to elevate input field
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+  },
+  dropdownItem: {
+    padding: 12, // Increased padding for better touch area
+    marginTop: 2,
+    backgroundColor: "#FFFFFF", // Consistent white background
+    borderColor: "#E0E0E0", // Light gray border
+    borderWidth: 1, // Adding border width for better distinction
+    borderRadius: 10, // Rounded corners for elegance
+    marginHorizontal: 10, // Horizontal margin for better spacing
+  },
+  dropdownItemText: {
+    color: "#424242", // Dark gray text for consistency
+    fontSize: 14, // Slightly smaller font for a clean look
+    fontWeight: "500", // Medium weight for better readability
   },
   scanButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.primary,
-    borderRadius: 10,
-    height: 40,
-    paddingHorizontal: 16,
-    justifyContent: "center",
+    backgroundColor: "#424242", // Light black color for scan button
+    borderRadius: 15,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    elevation: 5,
+    shadowColor: "#000", // Add shadow for better contrast
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
   scanButtonText: {
+    color: "#FFF",
     fontSize: 16,
-    color: colors.light,
-    fontWeight: "bold",
+    marginRight: 10,
   },
-  promotiomSliderContainer: {
-    marginVertical: 20,
-    backgroundColor: colors.light,
+  scanIcon: {
+    width: 20,
+    height: 20,
+  },
+  promotionSliderContainer: {
+    marginVertical: 15,
+    backgroundColor: "#FFF", // White background for slider
+    borderRadius: 13, // Added rounded edges
+    overflow: "hidden", // Ensures content respects border radius
+    elevation: 4, // Adds subtle shadow for better visual appearance
   },
   primaryTextContainer: {
     paddingHorizontal: 20,
+    marginBottom: 10,
+  },
+  primaryText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: colors.text,
-    marginBottom: 10,
+    color: "#424242", // Dark gray text
   },
   categoryContainer: {
     flexDirection: "row",
     marginRight: 10,
+  },
+  flatListContainer: {
+    paddingHorizontal: -1,
+  },
+  categoryItemContainer: {
+    marginBottom: 9,
   },
   emptyView: {
     height: 20,
@@ -407,8 +436,16 @@ const styles = StyleSheet.create({
   productCardContainerEmptyText: {
     fontSize: 18,
     fontStyle: "italic",
-    color: colors.muted,
+    color: "#9E9E9E", // Muted gray text
     fontWeight: "600",
     textAlign: "center",
+  },
+  productCardContainer: {
+    paddingHorizontal: -1,
+  },
+  productCard: {
+    marginLeft: 5,
+    marginBottom: 10,
+    marginRight: 5,
   },
 });

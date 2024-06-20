@@ -1,12 +1,19 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import { colors } from "../../constants";
+import imageSource from "../../assets/icons/user.png";
 
-const UserProfileCard = ({ Icon, name, email }) => {
+const UserProfileCard = ({ imageSource, name, email }) => {
   return (
-    <View style={styles.Container}>
+    <View style={styles.container}>
       <View style={styles.avatarContainer}>
-        <Icon name="person" size={80} color={colors.primary} />
+        {imageSource ? (
+          <Image source={imageSource} style={styles.avatar} />
+        ) : (
+          <View style={styles.defaultAvatar}>
+            <Text style={styles.defaultAvatarText}>{name?.[0]}</Text>
+          </View>
+        )}
       </View>
       <View style={styles.infoContainer}>
         <Text style={styles.usernameText}>{name}</Text>
@@ -19,39 +26,54 @@ const UserProfileCard = ({ Icon, name, email }) => {
 export default UserProfileCard;
 
 const styles = StyleSheet.create({
-  Container: {
+  container: {
     width: "100%",
-    display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
+    padding: 10,
+    backgroundColor: colors.shadow,
+    borderRadius: 10,
+    marginVertical: 10,
   },
   avatarContainer: {
-    display: "flex",
     width: "40%",
-
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: colors.primary_light,
-    borderRadius: 20,
     padding: 10,
+    borderRadius: 20,
+    backgroundColor: colors.light,
+  },
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+  },
+  defaultAvatar: {
+    width: 85,
+    height: 85,
+    borderRadius: 40,
+    backgroundColor: colors.muted,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  defaultAvatarText: {
+    fontSize: 40,
+    color: colors.primary,
+    fontWeight: "bold",
   },
   infoContainer: {
-    display: "flex",
-    width: "50%",
-
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    backgroundColor: colors.light,
-
+    width: "60%",
+    justifyContent: "center",
     paddingLeft: 10,
   },
   usernameText: {
     fontWeight: "bold",
     fontSize: 25,
+    color: colors.dark,
   },
   secondaryText: {
-    fontWeight: "bold",
     fontSize: 12,
+    color: colors.muted,
   },
 });

@@ -348,14 +348,16 @@ const styles = StyleSheet.create({
   },
   cartItemCountContainer: {
     position: "absolute",
-    top: -10,
-    left: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 22,
-    width: 22,
-    backgroundColor: colors.danger,
-    borderRadius: 11,
+    top: -12,
+    left: 13,
+    backgroundColor: "#424242", // Light black color
+    borderRadius: 40,
+    padding: 3,
+    elevation: 3, // Add slight shadow
+    shadowColor: "#000", // Shadow color
+    shadowOffset: { width: 0, height: 1 }, // Shadow offset
+    shadowOpacity: 0.3, // Shadow opacity
+    shadowRadius: 1, // Shadow radius
   },
   cartItemCountText: {
     color: colors.white,

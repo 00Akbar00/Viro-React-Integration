@@ -203,15 +203,16 @@ const styles = StyleSheet.create({
   },
   cartItemCountContainer: {
     position: "absolute",
-    zIndex: 10,
-    top: -10,
-    left: 10,
-    justifyContent: "center",
-    alignItems: "center",
-    height: 22,
-    width: 22,
-    backgroundColor: colors.danger,
-    borderRadius: 11,
+    top: -12,
+    left: 13,
+    backgroundColor: "#424242", // Light black color
+    borderRadius: 40,
+    padding: 3,
+    elevation: 3, // Add slight shadow
+    shadowColor: "#000", // Shadow color
+    shadowOffset: { width: 0, height: 1 }, // Shadow offset
+    shadowOpacity: 0.3, // Shadow opacity
+    shadowRadius: 1, // Shadow radius
   },
   cartItemCountText: {
     color: colors.white,
@@ -232,15 +233,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   categoryList: {
-    marginVertical: 20,
+    marginVertical: 5,
   },
   categoryListContent: {
-    paddingHorizontal: 10,
+    paddingHorizontal: -1,
   },
   productListContent: {
     paddingHorizontal: 10,
   },
   noItemContainer: {
+    marginBottom: 140,
     width: "100%",
     flex: 1,
     justifyContent: "center",
