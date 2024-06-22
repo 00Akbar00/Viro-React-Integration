@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: -1,
   },
   productListContent: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 16,
   },
   noItemContainer: {
     marginBottom: 140,
@@ -266,6 +266,7 @@ const styles = StyleSheet.create({
   },
   productCartContainer: {
     marginBottom: 10,
+    paddingHorizontal: 1.9,
   },
   emptyView: {
     margin: 3,

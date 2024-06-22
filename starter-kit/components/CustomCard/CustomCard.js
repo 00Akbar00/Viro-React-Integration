@@ -1,7 +1,7 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { colors } from "../../constants";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const CustomCard = ({ title, value, iconName, onPress, type = "danger" }) => {
   return (
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     padding: 20,
     borderRadius: 10,
-    margin: 5,
+    margin: 8,
     elevation: 5,
   },
   iconContainer: {

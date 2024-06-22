@@ -256,22 +256,16 @@ const ProductDetailScreen = ({ navigation, route }) => {
               <TouchableOpacity
                 disabled={isDisable}
                 style={styles.iconContainer}
-                onPress={handleNavigateToSpecificPage} // Add your handler for the new button here
+                onPress={handleNavigateToSpecificPage}
               >
-                <Image
-                  source={ARicon} // Use the custom icon
-                  style={styles.customIcon} // Add styles for the custom icon
-                />
+                <Image source={ARicon} style={styles.customIcon} />
               </TouchableOpacity>
               <TouchableOpacity
                 disabled={isDisable}
                 style={styles.iconContainer}
                 onPress={handleWishlistBtn}
               >
-                <Image
-                  source={heartIcon} // Use the custom icon
-                  style={styles.customIcon} // Add styles for the custom icon
-                />
+                <Image source={heartIcon} style={styles.customIcon} />
               </TouchableOpacity>
             </View>
             <View style={styles.productDetailContainer}>
@@ -282,7 +276,7 @@ const ProductDetailScreen = ({ navigation, route }) => {
             </View>
             <View style={styles.productDescriptionContainer}>
               <Text style={styles.secondaryTextSm}>Description:</Text>
-              <Text>{product?.description}</Text>
+              <Text style={styles.descriptionText}>{product?.description}</Text>
             </View>
           </View>
           <View style={styles.productInfoBottomContainer}>
@@ -350,14 +344,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: -12,
     left: 13,
-    backgroundColor: "#424242", // Light black color
+    backgroundColor: colors.dark,
     borderRadius: 40,
     padding: 3,
-    elevation: 3, // Add slight shadow
-    shadowColor: "#000", // Shadow color
-    shadowOffset: { width: 0, height: 1 }, // Shadow offset
-    shadowOpacity: 0.3, // Shadow opacity
-    shadowRadius: 1, // Shadow radius
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   cartItemCountText: {
     color: colors.white,
@@ -400,27 +394,30 @@ const styles = StyleSheet.create({
   },
   productNameContainer: {
     width: "100%",
-    marginBottom: 10,
+    marginBottom: 15,
   },
   productNameText: {
-    fontSize: 24,
+    fontSize: 25,
     fontWeight: "bold",
     color: colors.dark,
+    textAlign: "center",
   },
   infoButtonContainer: {
+    marginTop: 2,
     width: "100%",
     flexDirection: "row",
     justifyContent: "flex-end",
   },
   iconContainer: {
-    width: 40,
-    height: 40,
+    marginTop: 10,
+    width: 35,
+    height: 35,
     borderRadius: 20,
     backgroundColor: colors.white,
     justifyContent: "center",
     alignItems: "center",
     elevation: 5,
-    marginRight: 10, // Add margin to separate the buttons
+    marginRight: 10,
   },
   customIcon: {
     width: 25,
@@ -440,21 +437,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   secondaryTextSm: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: "bold",
     color: colors.dark,
   },
   primaryTextSm: {
     fontSize: 16,
     fontWeight: "bold",
-    color: colors.primary,
+    color: colors.dark,
     marginLeft: 5,
   },
   productDescriptionContainer: {
+    marginTop: 3,
     width: "100%",
     marginTop: 10,
   },
+  descriptionText: {
+    marginTop: 9,
+    fontSize: 16,
+    color: colors.secondary,
+    textAlign: "left",
+  },
   productInfoBottomContainer: {
+    marginTop: 7,
     width: "100%",
     paddingHorizontal: 20,
     paddingBottom: 20,
@@ -491,6 +496,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   productButtonContainer: {
+    marginTop: 13,
     width: "100%",
     paddingTop: 10,
   },

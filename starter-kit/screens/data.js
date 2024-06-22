@@ -8,8 +8,47 @@ export const category = [
 
 export const products = [
   {
+    id: 0,
+    title: "Modern Sofa",
+    image: "sofa.jpg",
+    price: 299,
+    quantity: 10,
+    description:
+      "This Modern Sofa offers both style and comfort. Crafted with high-quality materials, it features a sleek design that fits perfectly into any contemporary living room.",
+  },
+  {
     id: 1,
     title: "Modern Sofa",
+    category: "62fe244f58f7aa8230817f89",
+    image: "sofa.jpg",
+    price: 299,
+    quantity: 10,
+    description:
+      "This Modern Sofa offers both style and comfort. Crafted with high-quality materials, it features a sleek design that fits perfectly into any contemporary living room.",
+  },
+  {
+    id: 11,
+    title: "premium Sofa",
+    category: "62fe244f58f7aa8230817f89",
+    image: "sofa.jpg",
+    price: 299,
+    quantity: 10,
+    description:
+      "This Modern Sofa offers both style and comfort. Crafted with high-quality materials, it features a sleek design that fits perfectly into any contemporary living room.",
+  },
+  {
+    id: 12,
+    title: "leather Sofa",
+    category: "62fe244f58f7aa8230817f89",
+    image: "sofa.jpg",
+    price: 299,
+    quantity: 10,
+    description:
+      "This Modern Sofa offers both style and comfort. Crafted with high-quality materials, it features a sleek design that fits perfectly into any contemporary living room.",
+  },
+  {
+    id: 11,
+    title: "Pure Wood Sofa",
     category: "62fe244f58f7aa8230817f89",
     image: "sofa.jpg",
     price: 299,

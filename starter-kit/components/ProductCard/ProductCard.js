@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF", // Pure white background
     width: 150,
     height: 210, // Slightly taller for better spacing
-    borderRadius: 12, // More rounded corners for a modern look
+    borderRadius: 15, // More rounded corners for a modern look
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
